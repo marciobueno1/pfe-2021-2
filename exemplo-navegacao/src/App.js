@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import {
   BrowserRouter as Router,
   Switch,
@@ -9,8 +9,16 @@ import {
 import { About } from './pages/About';
 import { Home } from './pages/Home';
 import { Topics } from './pages/Topics';
+import { ThemeContext, themes } from "./ThemeContext";
 
 export default function App() {
+  const [theme, setTheme] = useState(themes.light);
+  function toggleTheme(){
+    setTheme(theme === themes.dark
+          ? themes.light
+          : themes.dark
+    );
+  };
   return (
     <Router>
       <div>
@@ -25,18 +33,23 @@ export default function App() {
             <Link to="/topics">Topics</Link>
           </li>
         </ul>
+        <button onClick={toggleTheme}>Muda Tema</button>
+        <About />
+        <hr />
 
-        <Switch>
-          <Route path="/about">
-            <About />
-          </Route>
-          <Route path="/topics">
-            <Topics />
-          </Route>
-          <Route path="/">
-            <Home />
-          </Route>
-        </Switch>
+        <ThemeContext.Provider value={theme}>
+          <Switch>
+            <Route path="/about">
+              <About />
+            </Route>
+            <Route path="/topics">
+              <Topics />
+            </Route>
+            <Route path="/">
+              <Home />
+            </Route>
+          </Switch>
+        </ThemeContext.Provider>
       </div>
     </Router>
   );

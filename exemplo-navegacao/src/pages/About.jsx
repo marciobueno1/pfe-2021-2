@@ -1,3 +1,11 @@
+import React, { useContext } from 'react';
+import { ThemeContext } from '../ThemeContext';
+
 export function About() {
-    return <h2>About</h2>;
+    const theme = useContext(ThemeContext);
+    return (
+        <div style={{ backgroundColor: theme.background}}>
+            <h2 style={{ color: theme.foreground }}>About</h2>
+        </div>
+    );
 }
