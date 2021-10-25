@@ -2,15 +2,20 @@ import React from "react";
 import ReactDOM from "react-dom";
 import App from "./App";
 import { StoreProvider } from "easy-peasy";
+import { QueryClient, QueryClientProvider } from "react-query";
 
 import reportWebVitals from "./reportWebVitals";
 import { store } from "./store";
 
+const queryClient = new QueryClient();
+
 ReactDOM.render(
   <React.StrictMode>
-    <StoreProvider store={store}>
-      <App />
-    </StoreProvider>
+    <QueryClientProvider client={queryClient}>
+      <StoreProvider store={store}>
+        <App />
+      </StoreProvider>
+    </QueryClientProvider>
   </React.StrictMode>,
   document.getElementById("root")
 );
