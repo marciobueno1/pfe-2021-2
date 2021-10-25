@@ -1,5 +1,7 @@
 import React, { useState } from "react";
 import { useQuery } from "react-query";
+import { getPeople } from "../api";
+
 import { Person } from "../components/Person";
 
 export function Home() {
@@ -12,10 +14,7 @@ export function Home() {
   };
   const { isLoading, error, data, isFetching } = useQuery(
     `people-${page}`,
-    () =>
-      fetch(`https://swapi.dev/api/people/?page=${page}`).then((res) =>
-        res.json()
-      )
+    getPeople(page)
   );
 
   if (isLoading) return "Loading...";
@@ -26,16 +25,16 @@ export function Home() {
     <div>
       <h2>Home</h2>
       <p>
-        <button onClick={handleAnteriorClick} disabled={!data.previous}>
+        <button onClick={handleAnteriorClick} disabled={!data.data.previous}>
           Anterior
         </button>
-        <button onClick={handleProximaClick} disabled={!data.next}>
+        <button onClick={handleProximaClick} disabled={!data.data.next}>
           Próxima
         </button>
       </p>
       <div>{isFetching ? "Updating..." : ""}</div>
       <ol start={(page - 1) * 10 + 1}>
-        {data.results.map((person) => (
+        {data.data.results.map((person) => (
           <li key={person.url}>
             <Person person={person} />
           </li>
