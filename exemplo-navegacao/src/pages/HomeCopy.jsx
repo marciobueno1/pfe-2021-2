@@ -1,13 +1,11 @@
-import React from "react";
+import React, { useState } from "react";
 import { useQuery } from "react-query";
-import { useStoreActions, useStoreState } from "easy-peasy";
-
 import { getPeople } from "../api";
+
 import { Person } from "../components/Person";
 
-export function Home() {
-  const page = useStoreState((state) => state.home.page);
-  const setPage = useStoreActions((state) => state.home.setPage);
+export function HomeCopy() {
+  const [page, setPage] = useState(1);
   const handleAnteriorClick = () => {
     setPage(page - 1);
   };

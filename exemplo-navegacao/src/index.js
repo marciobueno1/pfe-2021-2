@@ -3,18 +3,23 @@ import ReactDOM from "react-dom";
 import App from "./App";
 import { StoreProvider } from "easy-peasy";
 import { QueryClient, QueryClientProvider } from "react-query";
+import { persistStore } from "redux-persist";
+import { PersistGate } from "redux-persist/integration/react";
 
 import reportWebVitals from "./reportWebVitals";
-import { store } from "./store";
+import { store } from "./easy-peasy/store";
 
 const queryClient = new QueryClient();
+const persistor = persistStore(store);
 
 ReactDOM.render(
   <React.StrictMode>
     <QueryClientProvider client={queryClient}>
-      <StoreProvider store={store}>
-        <App />
-      </StoreProvider>
+      <PersistGate loading={<div>Loading</div>} persistor={persistor}>
+        <StoreProvider store={store}>
+          <App />
+        </StoreProvider>
+      </PersistGate>
     </QueryClientProvider>
   </React.StrictMode>,
   document.getElementById("root")

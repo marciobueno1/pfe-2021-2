@@ -2,11 +2,11 @@ import React from "react";
 import { useStoreActions, useStoreState } from "easy-peasy";
 
 export function About() {
-  const theme = useStoreState((state) => state.theme);
-  const toggleTheme = useStoreActions((state) => state.toggleTheme);
+  const themeMode = useStoreState((state) => state.theme.mode);
+  const toggleTheme = useStoreActions((state) => state.theme.toggle);
   return (
-    <div style={{ backgroundColor: theme.background }}>
-      <h2 style={{ color: theme.foreground }}>About</h2>
+    <div style={{ backgroundColor: themeMode.background }}>
+      <h2 style={{ color: themeMode.foreground }}>About</h2>
       <button onClick={toggleTheme}>Muda Tema</button>
     </div>
   );
